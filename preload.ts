@@ -2,9 +2,19 @@ const { contextBridge, ipcRenderer } = require('electron');
 const execa = require('execa');
 
 contextBridge.exposeInMainWorld('transform', {
-  change: (file) => {
-    return execa.command(
-      `sips -s format jpeg ${file.path} --out /Users/grahamnessler/Desktop/Local-Repos/heic-jpg-desktop/test.jpg`
-    );
+  change: ({ path }) => {
+    try {
+      if (path.match(/(.)\.HEIC$/i)) {
+        const outFilePath = path.replace(/.HEIC$/i, '.jpg');
+        return execa.command(
+          `sips -s format jpeg ${path} --out ${outFilePath}`
+        );
+      } else {
+        alert('File path must be of type .HEIC.');
+      }
+    } catch (error) {
+      alert('There was a problem converting your file. Please try again.');
+      console.error(error);
+    }
   },
 });
