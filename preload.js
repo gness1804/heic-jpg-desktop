@@ -1,12 +1,7 @@
-window.addEventListener('DOMContentLoaded', function () {
-    var replaceText = function (selector, text) {
-        var element = document.getElementById(selector);
-        if (element)
-            element.innerText = text;
-    };
-    var deps = ['chrome', 'node', 'electron'];
-    for (var _i = 0, deps_1 = deps; _i < deps_1.length; _i++) {
-        var dependency = deps_1[_i];
-        replaceText(dependency + "-version", process.versions[dependency]);
+var _a = require('electron'), contextBridge = _a.contextBridge, ipcRenderer = _a.ipcRenderer;
+var execa = require('execa');
+contextBridge.exposeInMainWorld('transform', {
+    change: function (file) {
+        return execa.command("sips -s format jpeg " + file.path + " --out /Users/grahamnessler/Desktop/Local-Repos/heic-jpg-desktop/test.jpg");
     }
 });

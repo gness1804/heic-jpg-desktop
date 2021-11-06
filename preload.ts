@@ -1,11 +1,10 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const replaceText = (selector: string, text: string) => {
-    const element = document.getElementById(selector)
-    if (element) element.innerText = text
-  }
+const { contextBridge, ipcRenderer } = require('electron');
+const execa = require('execa');
 
-  const deps: string[] = ['chrome', 'node', 'electron']
-  for (const dependency of deps) {
-    replaceText(`${dependency}-version`, process.versions[dependency])
-  }
-})
+contextBridge.exposeInMainWorld('transform', {
+  change: (file) => {
+    return execa.command(
+      `sips -s format jpeg ${file.path} --out /Users/grahamnessler/Desktop/Local-Repos/heic-jpg-desktop/test.jpg`
+    );
+  },
+});
