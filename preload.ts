@@ -2,13 +2,14 @@ const { contextBridge, ipcRenderer } = require('electron');
 const execa = require('execa');
 
 contextBridge.exposeInMainWorld('transform', {
-  change: ({ path }) => {
+  change: async ({ path }): Promise<string | undefined> => {
     try {
       if (path.match(/(.)\.HEIC$/i)) {
         const outFilePath = path.replace(/.HEIC$/i, '.jpg');
-        return execa.command(
+        await execa.command(
           `sips -s format jpeg ${path} --out ${outFilePath}`
         );
+        return outFilePath;
       } else {
         alert('File path must be of type .HEIC.');
       }

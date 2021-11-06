@@ -37,16 +37,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var fileInput = document.querySelector('#file-uploader');
 fileInput.addEventListener('change', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var file;
+    var file, filePath, link;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 file = event.target.files[0];
-                //@ts-ignore
                 return [4 /*yield*/, window.transform.change(file)];
             case 1:
-                //@ts-ignore
-                _a.sent();
+                filePath = _a.sent();
+                if (filePath) {
+                    console.log('filePath:', filePath);
+                    link = document.createElement('a');
+                    link.download = file.name.replace(/.HEIC$/i, '.jpg');
+                    link.href = filePath;
+                    link.click();
+                }
                 return [2 /*return*/];
         }
     });
