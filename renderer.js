@@ -46,7 +46,6 @@ fileInput.addEventListener('change', function (event) { return __awaiter(_this, 
             case 1:
                 filePath = _a.sent();
                 if (filePath) {
-                    console.log('filePath:', filePath);
                     link = document.createElement('a');
                     link.download = file.name.replace(/.HEIC$/i, '.jpg');
                     link.href = filePath;

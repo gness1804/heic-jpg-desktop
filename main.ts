@@ -1,6 +1,11 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
+if (process.platform !== 'darwin') {
+  alert('This application can only run on a Mac.');
+  app.quit();
+}
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1200,
@@ -19,8 +24,4 @@ app.whenReady().then(() => {
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-});
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
 });
