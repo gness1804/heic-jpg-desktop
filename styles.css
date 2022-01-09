@@ -1,0 +1,13 @@
+html {
+  font-family: 'Oswald', sans-serif;
+}
+
+h1, body {
+  margin: 0;
+}
+
+.header {
+  background-color: #ff9b34;
+  padding: 16px;
+  text-align: center;
+}
