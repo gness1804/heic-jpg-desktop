@@ -36,32 +36,44 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 var _a = require('electron'), contextBridge = _a.contextBridge, ipcRenderer = _a.ipcRenderer;
-var execa = require('execa');
+var promises = require('fs').promises;
+var convert = require('heic-convert');
 contextBridge.exposeInMainWorld('transform', {
     change: function (_a) {
         var path = _a.path;
         return __awaiter(_this, void 0, void 0, function () {
-            var outFilePath, error_1;
+            var outFilePath, inputBuffer, outputBuffer, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 4, , 5]);
-                        if (!path.match(/(.)\.HEIC$/i)) return [3 /*break*/, 2];
+                        _b.trys.push([0, 6, , 7]);
+                        if (!path.match(/(.)\.HEIC$/i)) return [3 /*break*/, 4];
                         outFilePath = path.replace(/.HEIC$/i, '.jpg');
-                        return [4 /*yield*/, execa.command("sips -s format jpeg " + path + " --out " + outFilePath)];
+                        return [4 /*yield*/, promises.readFile(path)];
                     case 1:
+                        inputBuffer = _b.sent();
+                        return [4 /*yield*/, convert({
+                                buffer: inputBuffer,
+                                format: 'JPEG',
+                                quality: 1
+                            })];
+                    case 2:
+                        outputBuffer = _b.sent();
+                        return [4 /*yield*/, promises.writeFile(outFilePath, outputBuffer)];
+                    case 3:
                         _b.sent();
                         return [2 /*return*/, outFilePath];
-                    case 2:
-                        alert('File path must be of type .HEIC.');
-                        _b.label = 3;
-                    case 3: return [3 /*break*/, 5];
                     case 4:
+                        // TODO: convert to toast
+                        alert('File path must be of type .HEIC.');
+                        _b.label = 5;
+                    case 5: return [3 /*break*/, 7];
+                    case 6:
                         error_1 = _b.sent();
                         alert('There was a problem converting your file. Please try again.');
                         console.error(error_1);
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         });
