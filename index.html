@@ -20,6 +20,7 @@
     <label
       for="file-uploader"
       class="
+        block
         border-2
         border-amber-800
         rounded-lg
@@ -30,7 +31,11 @@
         via-brown-medium
         to-brown-dark
         p-4
+        mb-6
+        mx-auto
         cursor-pointer
+        hover:opacity-75
+        w-52
       "
     >
       Choose your file</label
@@ -41,7 +46,7 @@
       accept=".heic"
       class="h-0 w-0 opacity-0 absolute"
     />
-
+    <p class="file-name"></p>
     <script src="./renderer.js"></script>
   </body>
 </html>
