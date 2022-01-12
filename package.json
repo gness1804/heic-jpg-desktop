@@ -6,6 +6,7 @@
   "scripts": {
     "start": "electron-forge start",
     "dev:watch": "tsc *.ts --resolveJsonModule --esModuleInterop --watch",
+    "tailwind:watch": "npx tailwindcss -i styles.css -o output.css --watch",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
