@@ -1,18 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html class="font-sans">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="output.css" />
     <title>Easy HEIC to Jpeg</title>
   </head>
-  <body>
-    <h1>Easy HEIC to Jpeg</h1>
+  <body class="text-center bg-orange-300">
+    <h1 class="text-3xl font-bold py-8 px-4 mb-8">Easy HEIC to JPEG</h1>
 
-    <label for="file-uploader">Choose your file</label>
-    <input type="file" id="file-uploader" accept=".heic">
-
+    <label
+      for="file-uploader"
+      class="
+        block
+        border-2
+        border-amber-800
+        rounded-lg
+        text-white
+        text-lg
+        bg-gradient-to-r
+        from-brown-light
+        via-brown-medium
+        to-brown-dark
+        p-4
+        mb-6
+        mx-auto
+        cursor-pointer
+        hover:opacity-75
+        w-52
+      "
+    >
+      Choose your file</label
+    >
+    <input
+      type="file"
+      id="file-uploader"
+      accept=".heic"
+      class="h-0 w-0 opacity-0 absolute"
+    />
+    <p class="file-name"></p>
     <script src="./renderer.js"></script>
   </body>
 </html>

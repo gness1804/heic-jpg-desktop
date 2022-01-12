@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var fileInput = document.querySelector('#file-uploader');
 fileInput.addEventListener('change', function (event) { return __awaiter(_this, void 0, void 0, function () {
-    var file, filePath, link;
+    var file, filePath, link, fileName;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -50,6 +50,8 @@ fileInput.addEventListener('change', function (event) { return __awaiter(_this, 
                     link.download = file.name.replace(/.HEIC$/i, '.jpg');
                     link.href = filePath;
                     link.click();
+                    fileName = file.name;
+                    document.querySelector('.file-name').textContent = "Your file: " + fileName;
                 }
                 return [2 /*return*/];
         }

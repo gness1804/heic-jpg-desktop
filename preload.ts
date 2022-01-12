@@ -1,16 +1,22 @@
 const { contextBridge, ipcRenderer } = require('electron');
-const execa = require('execa');
+const  { promises } = require('fs');
+const convert = require('heic-convert');
 
 contextBridge.exposeInMainWorld('transform', {
   change: async ({ path }): Promise<string | undefined> => {
     try {
       if (path.match(/(.)\.HEIC$/i)) {
         const outFilePath = path.replace(/.HEIC$/i, '.jpg');
-        await execa.command(
-          `sips -s format jpeg ${path} --out ${outFilePath}`
-        );
+        const inputBuffer = await promises.readFile(path);
+        const outputBuffer = await convert({
+          buffer: inputBuffer,
+          format: 'JPEG',
+          quality: 1
+        });
+        await promises.writeFile(outFilePath, outputBuffer);
         return outFilePath;
       } else {
+        // TODO: convert to toast
         alert('File path must be of type .HEIC.');
       }
     } catch (error) {
